@@ -57,10 +57,9 @@ class LoadTrip(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        myDict = dict(request.data)
         username = request.data['username']
         description = request.data['description']
-        markers = myDict.get('markers')
-        way = myDict.get('way')
-        print(myDict.keys())
+        for el in request.data:
+            print()
+            print(el)
         return Response('ok')
