@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView
@@ -56,8 +58,5 @@ class LoadTrip(APIView):
 
     def post(self, request):
         print(request.data)
-        print(request.data['username'])
-        print(request.data['description'])
-        #print(request.data['markers'])
-        #print(request.data['way'])
+        print(json.loads(request.data))
         return Response('ok')
