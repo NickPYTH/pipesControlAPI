@@ -23,13 +23,13 @@ class CreateProfile(CreateAPIView):
 
 class GetProfile(APIView):
     """
-    get:
+    post:
         Получение профиля пользователя
     """
     serializer_class = userProfileSerializer
     permission_classes = [AllowAny]
 
-    def get(self, request):
+    def post(self, request):
         username = self.request.user
         user = User.objects.get(username=username)
         user_profile = userProfile.objects.filter(user=user)
