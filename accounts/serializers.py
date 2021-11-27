@@ -30,9 +30,7 @@ class userProfileSerializer(serializers.ModelSerializer):
             username=attrs.get('username'),
             email=attrs.get('password'),
             password=make_password(attrs.get('password')))
-        user.save()
         user_profile = userProfile.objects.create(user=user)
-        user_profile.save()
         return user_profile
 
     class Meta:
