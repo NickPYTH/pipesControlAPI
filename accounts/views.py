@@ -61,5 +61,5 @@ class LoadTrip(APIView):
         description = request.data['description']
         for el in request.data:
             print()
-            print(json.loads(el))
+            print(el)
         return Response('ok')
