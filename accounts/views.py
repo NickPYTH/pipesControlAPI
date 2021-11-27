@@ -44,3 +44,19 @@ class GetProfile(APIView):
             })
         except:
             return Response('errorL')
+
+
+class LoadTrip(APIView):
+    """
+    post:
+        Изменение профиля пользователя
+    """
+    serializer_class = userProfileSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        print(request.data['username'])
+        print(request.data['description'])
+        print(request.data['markers'])
+        print(request.data['way'])
+        return Response('ok')
