@@ -16,6 +16,7 @@ class TripCoordinates(models.Model):
 
 
 class Trip(models.Model):
+    description = models.CharField(max_length=300)
     startDateTime = models.DateTimeField()
     endDateTime = models.DateTimeField()
     coordinates = models.ManyToManyField(TripCoordinates, null=True, blank=True)
