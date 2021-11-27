@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView
@@ -30,30 +31,17 @@ class GetProfile(APIView):
     serializer_class = userProfileSerializer
     permission_classes = [AllowAny]
 
-    def get(self, request):
-        username = self.request.user
-        user = User.objects.get(username=username)
-        print(user)
-        user_profile = userProfile.objects.filter(user=user)
-        print(user_profile)
-        user_info = {
-            'username': user.username,
-            'email': user.email,
-            'forms': ['formName']
-        }
-        return Response(user_info)
-
     def post(self, request):
         username = request.POST['login']
         password = request.POST['password']
         try:
             usr_obj = User.objects.get(username=username)
             if check_password(password, usr_obj.password):
-                return {'status': 'ok'}
+                return HttpResponse({'status': 'ok'})
             else:
-                return {'status': 'b'}
+                return HttpResponse({'status': 'b'})
         except:
-            return {'status': 'e'}
+            return HttpResponse({'status': 'e'})
 
 
 class UpdateProfile(UpdateAPIView):
