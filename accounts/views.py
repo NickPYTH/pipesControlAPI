@@ -49,11 +49,11 @@ class GetProfile(APIView):
         try:
             usr_obj = User.objects.get(username=username)
             if check_password(password, usr_obj.password):
-                return Response({'status': 'ok'})
+                return {'status': 'ok'}
             else:
-                return Response({'status': 'bad_pass'})
+                return {'status': 'b'}
         except:
-            return Response({'status': 'error'})
+            return {'status': 'e'}
 
 
 class UpdateProfile(UpdateAPIView):
