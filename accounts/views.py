@@ -62,5 +62,5 @@ class LoadTrip(APIView):
         description = request.data['description']
         markers = myDict.get('markers')
         way = myDict.get('way')
-        print(markers, way)
+        print(myDict.keys())
         return Response('ok')
