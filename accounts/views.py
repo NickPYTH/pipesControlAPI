@@ -27,29 +27,14 @@ class GetProfile(APIView):
         Получение профиля пользователя
     """
     serializer_class = userProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         username = self.request.user
         user = User.objects.get(username=username)
-        print(user)
         user_profile = userProfile.objects.filter(user=user)
-        print(user_profile)
         user_info = {
             'username': user.username,
             'email': user.email,
-            'forms': ['formName']
         }
         return Response(user_info)
-
-
-class UpdateProfile(UpdateAPIView):
-    """
-        patch:
-            Изменение данных профиля пользователя
-        """
-    serializer_class = userProfileSerializer
-    permission_classes = [IsAuthenticated]
-
-    def patch(self, request, *args, **kwargs):
-        pass
