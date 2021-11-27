@@ -1,0 +1,7 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+djoser
+requests==2.22.0
+django-rest-swagger
+validate_email
