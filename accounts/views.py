@@ -59,5 +59,5 @@ class LoadTrip(APIView):
     def post(self, request):
         username = request.data['username']
         description = request.data['description']
-        print(request.data.markers)
+        print(request.data.get('markers'))
         return Response('ok')
