@@ -31,9 +31,8 @@ class GetProfile(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        user = User.objects.get(username='nick')
         try:
-            user = User.objects.get(username=request.POST['login'])
+            user = User.objects.get(username=request.POST['username'])
             if not check_password(request.POST['password'], user.password):
                 return Response('errorP')
             trips = userProfile.objects.get(user=user).trip.all()
