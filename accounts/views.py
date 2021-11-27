@@ -67,17 +67,17 @@ class LoadTrip(APIView):
 
         for marker in markers:
             marker_obj = MarkerCoordinate.objects.create(
-                name=marker.name,
-                description=marker.description,
-                latitude=marker.latitude,
-                longitude=marker.longitude
+                name=marker.get('name'),
+                description=marker.get('description'),
+                latitude=marker.get('latitude'),
+                longitude=marker.get('longitude')
             )
             trip_obj.markers.add(marker_obj)
 
         for step in way:
             coordinates_obj = TripCoordinates.objects.create(
-                latitude=step.latitude,
-                longitude=step.longitude
+                latitude=step.get('latitude'),
+                longitude=step.get('longitude')
             )
             trip_obj.coordinates.add(coordinates_obj)
 
