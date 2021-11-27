@@ -5,8 +5,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 
-from .models import userProfile
+from .models import *
 from .serializers import userProfileSerializer
+from django.contrib.auth.hashers import check_password, make_password
 
 
 class CreateProfile(CreateAPIView):
@@ -30,11 +31,16 @@ class GetProfile(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = self.request.user
-        user = User.objects.get(username=username)
-        user_profile = userProfile.objects.filter(user=user)
-        user_info = {
-            'username': user.username,
-            'email': user.email,
-        }
-        return Response(user_info)
+        try:
+            user = User.objects.get(username=request.POST['login'])
+            if not check_password(request.POST['password'], user.password):
+                return Response('errorP')
+            trips = userProfile.objects.get(user=user).trip.all()
+            trip_list = []
+            for trip in trips:
+                trip_list.append(trip)
+            return Response({
+                'trips': trip_list
+            })
+        except:
+            return Response('errorL')

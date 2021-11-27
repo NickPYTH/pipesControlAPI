@@ -18,12 +18,12 @@ class TripCoordinates(models.Model):
 class Trip(models.Model):
     startDateTime = models.DateTimeField()
     endDateTime = models.DateTimeField()
-    coordinates = models.ManyToManyField(TripCoordinates)
+    coordinates = models.ManyToManyField(TripCoordinates, null=True, blank=True)
 
 
 class userProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    trip = models.ManyToManyField(Trip)
+    trip = models.ManyToManyField(Trip, null=True, blank=True)
 
 
 
