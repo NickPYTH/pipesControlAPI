@@ -59,5 +59,30 @@ class LoadTrip(APIView):
     def post(self, request):
         username = request.data['username']
         description = request.data['description']
-        print(request.data.get('markers'))
+        markers = request.data.get('markers')
+        way = markers = request.data.get('way')
+
+        user_obj = userProfile.objects.get(username=username)
+        trip_obj = Trip.objects.create(description=description)
+
+        for marker in markers:
+            marker_obj = MarkerCoordinate.objects.create(
+                name=marker.name,
+                description=marker.description,
+                latitude=marker.latitude,
+                longitude=marker.longitude
+            )
+            trip_obj.markers.add(marker_obj)
+
+        for step in way:
+            coordinates_obj = TripCoordinates.objects.create(
+                latitude=step.latitude,
+                longitude=step.longitude
+            )
+            trip_obj.coordinates.add(coordinates_obj)
+
+        trip_obj.save()
+        user_obj.trip.add(trip_obj)
+        user_obj.save()
+
         return Response('ok')
