@@ -24,6 +24,16 @@ class CreateProfile(CreateAPIView):
         return self.serializer_class
 
 
+class GetImages(APIView):
+    serializer_class = userProfileSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        file = request.FILES['image']
+        print(file)
+        return Response('ok')
+
+
 class GetTripDetail(APIView):
     """
     post:
