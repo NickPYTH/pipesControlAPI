@@ -1,4 +1,5 @@
 import json
+from random import random
 
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -6,6 +7,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 from rest_framework.response import Response
+from minio import Minio
 
 from .models import *
 from .serializers import userProfileSerializer
@@ -30,7 +32,16 @@ class GetImages(APIView):
 
     def post(self, request):
         file = request.FILES['image']
+        description = request.POST['description']
         print(file)
+        client = Minio("176.57.217.201:9000", "minioadmin", "minioadmin", secure=False)
+
+        file_name = random.randint(7000, 199320323233)
+        if client.bucket_exists("pipes"):
+            client.fput_object("pipes", str(file_name) + ".jpg", file)
+        #return {
+        #    "file_link": "http://176.57.217.201:9000/voteapp/" + str(file_name) + ".xlsx",
+        #}
         return Response('ok')
 
 
