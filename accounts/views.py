@@ -53,8 +53,10 @@ class GetTripDetail(APIView):
                     "latitude": step.latitude,
                     "longitude": step.longitude
                 })
-            print(markers, way)
-            return Response('ok')
+            return Response({
+                'markers': markers,
+                'way': way
+            })
         except:
             return Response('errorL')
 
