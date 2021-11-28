@@ -21,9 +21,11 @@ class Trip(models.Model):
     coordinates = models.ManyToManyField(TripCoordinates, null=True, blank=True)
     markers = models.ManyToManyField(MarkerCoordinate, null=True, blank=True)
 
+
 class userProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     trip = models.ManyToManyField(Trip, null=True, blank=True)
+
 
 
 

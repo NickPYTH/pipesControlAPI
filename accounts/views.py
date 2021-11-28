@@ -37,8 +37,22 @@ class GetTripDetail(APIView):
             user = User.objects.get(username=request.POST['username'])
             description = request.POST['description']
             trip = userProfile.objects.get(user=user).trip.filter(description=description)[0]
-            markers = trip.markers.all()
-            way = trip.coordinates.all()
+            markers = []
+            way = []
+            for marker in trip.markers.all():
+                markers.append(
+                    {
+                        'name': marker.name,
+                        'description': marker.description,
+                        'latitude': marker.latitude,
+                        'longitude': marker.longitude,
+                    }
+                )
+            for step in trip.coordinates.all():
+                way.append({
+                    "latitude": step.latitude,
+                    "longitude": step.longitude
+                })
             print(markers, way)
             return Response('ok')
         except:
