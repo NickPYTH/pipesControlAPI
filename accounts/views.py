@@ -24,6 +24,25 @@ class CreateProfile(CreateAPIView):
         return self.serializer_class
 
 
+class GetTripDetail(APIView):
+    """
+    post:
+        Получение профиля пользователя
+    """
+    serializer_class = userProfileSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        try:
+            user = User.objects.get(username=request.POST['username'])
+            description = request.POST['description']
+            trip = userProfile.objects.get(user=user).trip.filter(description=description)[0]
+            print(trip)
+            return Response('ok')
+        except:
+            return Response('errorL')
+
+
 class GetProfile(APIView):
     """
     post:
