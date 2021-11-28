@@ -61,8 +61,8 @@ class LoadTrip(APIView):
         description = request.data['description']
         markers = request.data.get('markers')
         way = markers = request.data.get('way')
-        print(markers)
-        print(way)
+        print(type(markers))
+        print(type(way))
         user_obj = userProfile.objects.get(user=User.objects.get(username=username))
         trip_obj = Trip.objects.create(description=description)
 
