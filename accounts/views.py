@@ -92,28 +92,26 @@ class GetProfile(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        try:
-            user = User.objects.get(username=request.POST['username'])
-            if not check_password(request.POST['password'], user.password):
-                return Response('errorP')
-            trips = userProfile.objects.get(user=user).trip.all()
-            trip_list = []
+        #try:
+        user = User.objects.get(username=request.POST['username'])
+        if not check_password(request.POST['password'], user.password):
+            return Response('errorP')
+        trips = userProfile.objects.get(user=user).trip.all()
+        trip_list = []
 
-            for trip in trips:
-                print(trip.description)
-                print(len(trip.markers.all()))
-                trip_list.append({
-                    'description': trip.description,
-                    'date_time': '28.11.2021',
-                    'num_markers': len(trip.markers.all())
-                })
-                print(trip_list)
-            print(123)
-            return Response({
-                'trips': trip_list
+        for trip in trips:
+            print(trip.description)
+            print(len(trip.markers.all()))
+            trip_list.append({
+                'description': trip.description,
+                'date_time': '28.11.2021',
+                'num_markers': len(trip.markers.all())
             })
-        except:
-            return Response('errorL')
+        return Response({
+            'trips': trip_list
+        })
+        #except:
+        #    return Response('errorL')
 
 
 class LoadTrip(APIView):
