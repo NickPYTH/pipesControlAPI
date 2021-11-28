@@ -92,13 +92,13 @@ class GetProfile(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        User.objects.get(username=request.POST['username'])
         try:
             user = User.objects.get(username=request.POST['username'])
             if not check_password(request.POST['password'], user.password):
                 return Response('errorP')
             trips = userProfile.objects.get(user=user).trip.all()
             trip_list = []
+            print(trips)
 
             for trip in trips:
                 trip_list.append({
