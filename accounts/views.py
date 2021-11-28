@@ -106,6 +106,7 @@ class GetProfile(APIView):
                     'date_time': trip.dateTime,
                     'num_markers': len(trip.markers.all())
                 })
+                print(trip_list)
             print(123)
             return Response({
                 'trips': trip_list
