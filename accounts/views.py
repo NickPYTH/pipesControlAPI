@@ -108,6 +108,7 @@ class GetProfile(APIView):
                 })
             print(123)
             print(trip_list)
+            print(123)
             return Response({
                 'trips': trip_list
             })
