@@ -107,8 +107,6 @@ class GetProfile(APIView):
                     'num_markers': len(trip.markers.all())
                 })
             print(123)
-            print(trip_list)
-            print(123)
             return Response({
                 'trips': trip_list
             })
