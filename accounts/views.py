@@ -37,7 +37,9 @@ class GetTripDetail(APIView):
             user = User.objects.get(username=request.POST['username'])
             description = request.POST['description']
             trip = userProfile.objects.get(user=user).trip.filter(description=description)[0]
-            print(trip)
+            markers = trip.markers.all()
+            way = trip.coordinates.all()
+            print(markers, way)
             return Response('ok')
         except:
             return Response('errorL')
