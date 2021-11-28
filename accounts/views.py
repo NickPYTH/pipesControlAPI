@@ -103,7 +103,7 @@ class GetProfile(APIView):
             print(trip.description)
             print(len(trip.markers.all()))
             trip_list.append({
-                'description': trip.description.encode('latin-1', 'replace'),
+                'description': trip.description.encode('latin-1', 'ignore'),
                 'date_time': '28.11.2021',
                 'num_markers': len(trip.markers.all())
             })
