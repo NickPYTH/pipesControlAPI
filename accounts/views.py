@@ -33,16 +33,17 @@ class GetImages(APIView):
     def post(self, request):
         file = request.FILES['image']
         description = request.POST['description']
-        print(file)
+        print(request.FILES['image'])
+        name = random.randint(10000, 99999)
+        with open(str(name) + '.png', 'wb+') as destination:
+            for chunk in request.FILES['image'].chunks():
+                destination.write(chunk)
         client = Minio("176.57.217.201:9000", "minioadmin", "minioadmin", secure=False)
-
-        file_name = random.randint(7000, 199320323233)
         if client.bucket_exists("pipes"):
-            client.fput_object("pipes", str(file_name) + ".jpg", file)
-        #return {
-        #    "file_link": "http://176.57.217.201:9000/voteapp/" + str(file_name) + ".xlsx",
-        #}
-        return Response('ok')
+            client.fput_object("pipes", str(name) + '.png', 'name.png')
+        Response ({
+            "link": "http://176.57.217.201:9000/pipes/" + str(name) + '.png'
+        })
 
 
 class GetTripDetail(APIView):
