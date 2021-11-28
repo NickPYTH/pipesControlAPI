@@ -39,9 +39,14 @@ class GetProfile(APIView):
                 return Response('errorP')
             trips = userProfile.objects.get(user=user).trip.all()
             trip_list = []
+
             for trip in trips:
-                print(trip)
-                trip_list.append(trip)
+                trip_list.append({
+                    'description': trip.description,
+                    'date_time': trip.dateTime,
+                    'num_markers': len(trip.markers)
+                })
+            print(trip_list)
             return Response({
                 'trips': trip_list
             })
