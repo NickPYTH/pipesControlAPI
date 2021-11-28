@@ -38,9 +38,9 @@ class GetProfile(APIView):
             if not check_password(request.POST['password'], user.password):
                 return Response('errorP')
             trips = userProfile.objects.get(user=user).trip.all()
-            print(userProfile.objects.get(user=user))
             trip_list = []
             for trip in trips:
+                print(trip)
                 trip_list.append(trip)
             return Response({
                 'trips': trip_list
